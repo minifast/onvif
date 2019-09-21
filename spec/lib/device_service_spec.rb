@@ -8,6 +8,8 @@ RSpec.describe Onvif::DeviceService do
 
   let(:device_information_path) { File.join('spec', 'fixtures', 'device_service', 'get_device_information.xml') }
   let(:device_information) { File.read(device_information_path) }
+  let(:capabilities_path) { File.join('spec', 'fixtures', 'device_service', 'get_capabilities.xml') }
+  let(:capabilities) { File.read(capabilities_path) }
   let(:camera) { { url: 'http://example.com', username: 'CornPop', password: 'pomade' } }
 
   before(:all) { savon.mock! }
@@ -36,6 +38,14 @@ RSpec.describe Onvif::DeviceService do
 
     it 'returns device information' do
       expect(device_service.get_device_information).to include(:manufacturer, :model, :serial_number, :hardware_id, :firmware_version)
+    end
+  end
+
+  describe '#get_capabilities' do
+    before { savon.expects(:get_capabilities).returns(capabilities) }
+
+    it 'returns device capabilities' do
+      expect(device_service.get_capabilities).to include(:media, :ptz)
     end
   end
 end

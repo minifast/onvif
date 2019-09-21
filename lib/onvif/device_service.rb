@@ -28,6 +28,10 @@ module Onvif
       client.call(:get_device_information, soap_header: header).body.dig(:get_device_information_response)
     end
 
+    def get_capabilities
+      client.call(:get_capabilities, soap_header: header).body.dig(:get_capabilities_response, :capabilities)
+    end
+
     private
 
     def client

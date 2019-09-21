@@ -48,4 +48,12 @@ RSpec.describe Onvif::DeviceService do
       expect(device_service.get_capabilities).to include(:media, :ptz)
     end
   end
+
+  describe '#media_service_path' do
+    before { savon.expects(:get_capabilities).returns(capabilities) }
+
+    it 'returns the media service path' do
+      expect(device_service.media_service_path).to eq('/onvif/media_service')
+    end
+  end
 end

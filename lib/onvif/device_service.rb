@@ -32,6 +32,10 @@ module Onvif
       client.call(:get_capabilities, soap_header: header).body.dig(:get_capabilities_response, :capabilities)
     end
 
+    def media_service_path
+      URI(get_capabilities.dig(:media, :x_addr)).path
+    end
+
     private
 
     def client

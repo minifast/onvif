@@ -1,6 +1,4 @@
-require "onvif/version"
+require 'onvif/version'
+require 'onvif/device_service'
 
-module Onvif
-  class Error < StandardError; end
-  # Your code goes here...
-end
+module Onvif; end

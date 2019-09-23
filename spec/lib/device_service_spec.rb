@@ -10,6 +10,8 @@ RSpec.describe Onvif::DeviceService do
   let(:device_information) { File.read(device_information_path) }
   let(:capabilities_path) { File.join('spec', 'fixtures', 'device_service', 'get_capabilities.xml') }
   let(:capabilities) { File.read(capabilities_path) }
+  let(:system_date_and_time_path) { File.join('spec', 'fixtures', 'device_service', 'get_system_date_and_time.xml') }
+  let(:system_date_and_time) { File.read(system_date_and_time_path) }
   let(:camera) { { url: 'http://example.com', username: 'CornPop', password: 'pomade' } }
 
   before(:all) { savon.mock! }
@@ -54,6 +56,14 @@ RSpec.describe Onvif::DeviceService do
 
     it 'returns the media service path' do
       expect(device_service.media_service_path).to eq('/onvif/media_service')
+    end
+  end
+
+  describe '#get_system_date_and_time' do
+    before { savon.expects(:get_system_date_and_time).returns(system_date_and_time) }
+
+    it 'returns the camera date and time' do
+      expect(device_service.get_system_date_and_time.map { |k, _v| k }).to include(:utc_date_time, :local_date_time)
     end
   end
 end

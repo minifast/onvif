@@ -36,6 +36,10 @@ module Onvif
       URI(get_capabilities.dig(:media, :x_addr)).path
     end
 
+    def get_system_date_and_time
+      client.call(:get_system_date_and_time).body.dig(:get_system_date_and_time_response, :system_date_and_time)
+    end
+
     private
 
     def client

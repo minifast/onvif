@@ -12,6 +12,7 @@ GEM
       nokogiri
     builder (3.2.3)
     diff-lcs (1.3)
+    dotenv (2.7.5)
     gyoku (1.3.1)
       builder (>= 2.1.2)
     httpi (2.4.4)
@@ -56,6 +57,7 @@ PLATFORMS
 
 DEPENDENCIES
   bundler (~> 1.17)
+  dotenv
   onvif!
   rake (~> 10.0)
   rspec (~> 3.0)

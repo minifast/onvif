@@ -1,5 +1,9 @@
 require "bundler/setup"
+require 'dotenv/load'
 require "onvif"
+
+
+Dir[File.expand_path(File.join('spec', 'support', '**', '*.rb'))].each { |f| require f }
 
 RSpec.configure do |config|
   # Enable flags like --only-failures and --next-failure

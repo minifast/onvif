@@ -1,20 +1,14 @@
 require 'spec_helper'
-require 'savon/mock/spec_helper'
 
-RSpec.describe Onvif::MediaService do
-  include Savon::SpecHelper
-
+RSpec.describe Onvif::MediaService, :savon do
   subject(:media_service) { described_class.new(camera, device_service) }
 
   let(:capabilities_path) { File.join('spec', 'fixtures', 'device_service', 'get_capabilities.xml') }
   let(:capabilities) { File.read(capabilities_path) }
   let(:profiles_path) { File.join('spec', 'fixtures', 'media_service', 'get_profiles.xml') }
   let(:profiles) { File.read(profiles_path) }
-  let(:camera) { { url: 'http://example.com', username: 'CornPop', password: 'pomade' } }
+  let(:camera) { real_camera || { url: 'http://example.com', username: 'CornPop', password: 'pomade' } }
   let(:device_service) { Onvif::DeviceService.new(camera) }
-
-  before(:all) { savon.mock! }
-  after(:all)  { savon.unmock! }
 
   describe '#url' do
     before { savon.expects(:get_capabilities).returns(capabilities) }

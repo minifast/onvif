@@ -18,5 +18,15 @@ module Onvif
     def wsdl_path
       File.expand_path(File.join('config', 'media.wsdl'))
     end
+
+    def profiles
+      client.call(:get_profiles, soap_header: device_service.header).body.dig(:get_profiles_response, :profiles)
+    end
+
+    private
+
+    def client
+      @client ||= Savon.client(endpoint: url, wsdl: wsdl_path, soap_version: 2)
+    end
   end
 end
